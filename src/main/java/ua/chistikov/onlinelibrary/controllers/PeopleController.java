@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ua.chistikov.onlinelibrary.dao.LibraryDAO;
 import ua.chistikov.onlinelibrary.dao.PersonDAO;
 import ua.chistikov.onlinelibrary.models.Person;
 
@@ -14,10 +15,12 @@ import javax.validation.Valid;
 public class PeopleController {
 
     private final PersonDAO personDAO;
+    private final LibraryDAO libraryDAO;
 
     @Autowired
-    public PeopleController(PersonDAO personDAO) {
+    public PeopleController(PersonDAO personDAO, LibraryDAO libraryDAO) {
         this.personDAO = personDAO;
+        this.libraryDAO = libraryDAO;
     }
 
     @GetMapping()
@@ -55,6 +58,7 @@ public class PeopleController {
 
     @DeleteMapping("/{id}")
     public String delete(Model model, @PathVariable("id") int id){
+        libraryDAO.deleteByPerson(id);
         personDAO.delete(id);
         return "redirect:/people";
     }
