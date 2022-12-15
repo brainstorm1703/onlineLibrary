@@ -66,7 +66,6 @@ public class BookController {
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("book") @Valid Book book, @PathVariable("id") int id) {
-
         bookDAO.update(id, book);
         return "redirect:/book";
     }
@@ -80,9 +79,7 @@ public class BookController {
 
     @PutMapping("/{id}")
     public String takeBook(@ModelAttribute("human") @Valid Person person, @PathVariable("id") int book_id) {
-        System.out.println(person.getPerson_id() + " " + book_id);
         libraryDAO.save(person.getPerson_id(), book_id);
-
         return "redirect:/book/{id}";
     }
     @PostMapping("/{id}")

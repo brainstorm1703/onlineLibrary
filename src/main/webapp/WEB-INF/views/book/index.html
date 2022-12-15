@@ -9,7 +9,7 @@ list of books
 <br>
 <hr>
 <div th:each="book : ${books}">
-    <a th:href="@{/book/{id}(id=${book.getBook_id()})}" th:text="${book.getName()}">user</a>
+    <a th:href="@{/book/{id}(id=${book.getBook_id()})}" th:text="${book.getName()}">book</a>
 </div>
 
 <br/>
