@@ -31,7 +31,6 @@ public class PeopleController {
     }
     @PostMapping()
     public String create(@ModelAttribute("person") @Valid Person person) {
-
         personDAO.save(person);
         return "redirect:/people";
     }
@@ -50,7 +49,6 @@ public class PeopleController {
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("person") @Valid Person person, @PathVariable("id") int id) {
-
         personDAO.update(id, person);
         return "redirect:/people";
     }
