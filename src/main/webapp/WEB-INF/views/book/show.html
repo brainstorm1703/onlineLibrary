@@ -7,6 +7,30 @@
 <body>
 <p th:text="${book.getName() + ', ' + book.getAuthorName() + ', ' + book.getReleaseYear()}">name and year of birth</p>
 
+<div th:if="${person == null}">
+
+  <p>Book is free!</p>
+
+  <form th:method="PUT" th:action="@{/book/{id}(id=${book.getBook_id()})}">
+
+    <label for="person">Choose a person</label>
+
+    <select th:object="${human}" th:field="*{person_id}" id="person">
+      <option th:each="person : ${people}" th:value="${person.getPerson_id()}"
+              th:text="${person.getName()}"></option>
+    </select>
+    <input type="submit" value="Choose a person">
+
+  </form>
+
+</div>
+
+<div th:unless="${person == null}">
+  <p th:text="'The book belongs to ' + ${person.getName()}"></p>
+  <form th:method="POST" th:action="@{/book/{id}(id=${book.getBook_id()})}">
+    <input type="submit" value="Set Free"/>
+  </form>
+</div>
 <hr>
 
 <a th:href="@{/book/{id}/edit(id=${book.getBook_id()})}">Edit</a>
