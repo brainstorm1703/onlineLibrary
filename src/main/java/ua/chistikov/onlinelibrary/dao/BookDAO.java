@@ -26,4 +26,14 @@ public class BookDAO {
         jdbcTemplate.update("INSERT INTO Book(name, release_year, author_name) " +
                 "VALUES(?, ?, ?)", book.getName(), book.getReleaseYear(), book.getAuthorName());
     }
+
+    public Book show(int id) {
+        return jdbcTemplate.query("SELECT * FROM Book WHERE book_id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Book.class))
+                .stream().findAny().orElse(null);
+    }
+
+    public void update(int id, Book updatedBook) {
+        jdbcTemplate.update("UPDATE Book SET name=?, release_year=?, author_name=? WHERE book_id=?", updatedBook.getName(),
+                updatedBook.getReleaseYear(), updatedBook.getAuthorName(), id);
+    }
 }
